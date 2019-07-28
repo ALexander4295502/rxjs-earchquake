@@ -116,7 +116,6 @@ function initialize() {
     .subscribe(rows => {
       const prevCircle = quakeLayers.getLayer(codeLayers[rows[0].id]);
       const curCircle = quakeLayers.getLayer(codeLayers[rows[1].id]);
-      console.log(curCircle);
       prevCircle.setStyle({ color: "#0000ff" });
       curCircle.setStyle({ color: "#ff0000" });
     });
