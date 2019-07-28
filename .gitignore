@@ -63,3 +63,4 @@ typings/
 yarn.lock
 dist
 bundle.js
+mapbox.json

@@ -1,0 +1,43 @@
+#map {
+    z-index: 1
+}
+
+#quake_table_container {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 2;
+
+    max-height: 30%;
+    max-width: 40%;
+    overflow-y: auto;
+
+    font-family: monospace;
+    font-size: 12px;
+}
+
+#quake_table_container table {
+    border-collapse: collapse;
+    background: rgba(255, 255, 255, 0.4);
+}
+
+#quake_table_container table th {
+    position: sticky;
+    top: 0;
+    background: rgba(255, 255, 255, 0.7);
+}
+
+#quake_table_container table tbody tr {
+    cursor: pointer;
+    transition: background 0.5s ease;
+}
+
+#quake_table_container table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.7);
+}
+
+#quake_table_container table,
+#quake_table_container table th,
+#quake_table_container table td {
+    border: 1px solid #aaa;
+}
