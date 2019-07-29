@@ -43,13 +43,30 @@ export function loadJSONP(settings) {
 export function makeRow(props) {
   const row = document.createElement("tr");
   row.id = props.net + props.code;
-  const time = new Date(props.time).toString().split("GMT")[0];
-  [props.place, props.mag, time].forEach(text => {
+  const time = new Date(props.time);
+  [
+    props.place,
+    props.mag,
+    `${time.toLocaleDateString()} ${time.toLocaleTimeString()}`
+  ].forEach(text => {
     const cell = document.createElement("td");
     cell.textContent = text;
     row.appendChild(cell);
   });
   return row;
+}
+
+export function makeTweetElement(tweetObj) {
+  const tweetEl = document.createElement("div");
+  tweetEl.className = 'tweet';
+  const time = new Date(tweetObj.created_at);
+  const timeText = `${time.toLocaleDateString()} ${time.toLocaleTimeString()}`;
+  tweetEl.innerHTML = `
+    <img src="${tweetObj.user.profile_image_url}" class="avatar"/>
+    <div class="content">${tweetObj.text}</div>
+    <div class="time">${timeText}</div>
+  `;
+  return tweetEl;
 }
 
 export function identity(x) {

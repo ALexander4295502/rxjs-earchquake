@@ -16,7 +16,7 @@ import {
   MAP_INIT_COORDINATES,
   LOAD_DATA_FREQ
 } from "./Constants";
-import { loadJSONP, makeRow, identity } from "./Helper";
+import { loadJSONP, makeRow, makeTweetElement, identity } from "./Helper";
 
 // Setup Leaflet icon
 delete L.Icon.Default.prototype._getIconUrl;
@@ -71,6 +71,9 @@ function getRowFromEvent(event) {
 }
 
 function initialize() {
+  // webSocket setup
+  const socket$ = Observable.webSocket("ws://192.168.0.16:8081");
+
   // Create Observable to retrieve dataset and emits single earthquake
   const quakes$ = Observable.timer(0, LOAD_DATA_FREQ)
     .flatMap(() => {
@@ -91,6 +94,24 @@ function initialize() {
     const circle = L.circle([coords[1], coords[0]], size).addTo(map);
     quakeLayers.addLayer(circle);
     codeLayers[quake.id] = quakeLayers.getLayerId(circle);
+  });
+
+  quakes$.bufferCount(100).subscribe(quakes => {
+    const quakesData = quakes.map(quake => ({
+      id: quake.properties.net + quake.properties.code,
+      lat: quake.geometry.coordinates[1],
+      lng: quake.geometry.coordinates[0],
+      mag: quake.properties.mag
+    }));
+    socket$.next(JSON.stringify({ quakes: quakesData }));
+  });
+
+  socket$.subscribe(data => {
+    const tweetContainer = document.getElementById("tweet_container");
+    tweetContainer.insertBefore(
+      makeTweetElement(data),
+      tweetContainer.firstChild
+    );
   });
 
   // Fill table with quake info
