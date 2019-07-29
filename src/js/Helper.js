@@ -72,3 +72,7 @@ export function makeTweetElement(tweetObj) {
 export function identity(x) {
   return x;
 }
+
+export function isDev() {
+    return process.env.NODE_ENV === 'development';
+}

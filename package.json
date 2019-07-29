@@ -6,8 +6,8 @@
   "author": "Zheng Yuan <yuanzheng@sportdex.io>",
   "license": "MIT",
   "scripts": {
-    "build": "webpack --env.prod -p",
-    "start": "webpack-dev-server --env.dev --host 192.168.0.16",
+    "build": "webpack --mode production",
+    "start": "webpack-dev-server --host 192.168.0.16 --mode development",
     "predeploy": "yarn run build",
     "deploy": "gh-pages -d dist"
   },

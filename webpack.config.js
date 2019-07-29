@@ -1,14 +1,14 @@
 const glob = require("glob");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
-module.exports = env => ({
+module.exports = (_, argv) => ({
   entry: glob.sync("./src/js/**/*.js"),
   output: {
     path: __dirname + "/dist",
     filename: "bundle.js"
   },
-  watch: env.dev,
-  devtool: env.dev ? "inline-source-map" : "source-map",
+  watch: argv.mode === 'development',
+  devtool: argv.mode === 'development' ? "inline-source-map" : "source-map",
   module: {
     rules: [
       {

@@ -14,9 +14,16 @@ import {
   MAPBOX_TILE_URL,
   TILE_LAYER_ATTRIBUTION,
   MAP_INIT_COORDINATES,
-  LOAD_DATA_FREQ
+  LOAD_DATA_FREQ,
+  WS_URL
 } from "./Constants";
-import { loadJSONP, makeRow, makeTweetElement, identity } from "./Helper";
+import {
+  loadJSONP,
+  makeRow,
+  makeTweetElement,
+  identity,
+  isDev
+} from "./Helper";
 
 // Setup Leaflet icon
 delete L.Icon.Default.prototype._getIconUrl;
@@ -72,7 +79,9 @@ function getRowFromEvent(event) {
 
 function initialize() {
   // webSocket setup
-  const socket$ = Observable.webSocket("ws://192.168.0.16:8081");
+  const socket$ = Observable.webSocket(
+    isDev() ? WS_URL.development : WS_URL.production
+  );
 
   // Create Observable to retrieve dataset and emits single earthquake
   const quakes$ = Observable.timer(0, LOAD_DATA_FREQ)
