@@ -79,7 +79,6 @@ function getRowFromEvent(event) {
 
 function initialize() {
   // webSocket setup
-  console.log(isDev() ? WS_URL.development : WS_URL.production);
   const socket$ = Observable.webSocket(
     isDev() ? WS_URL.development : WS_URL.production
   );
