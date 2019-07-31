@@ -105,7 +105,7 @@ function initialize() {
     codeLayers[quake.id] = quakeLayers.getLayerId(circle);
   });
 
-  quakes$.bufferCount(100).subscribe(quakes => {
+  quakes$.bufferTime(3000).bufferCount(100).subscribe(quakes => {
     const quakesData = quakes.map(quake => ({
       id: quake.properties.net + quake.properties.code,
       lat: quake.geometry.coordinates[1],
