@@ -9,6 +9,6 @@ export const MAP_INIT_COORDINATES = [37.44188, -122.14302];
 export const LOAD_DATA_FREQ = 5000;
 
 export const WS_URL = {
-  production: "https://rxjs-earthquake-backend.herokuapp.com:8081",
+  production: "https://rxjs-earthquake-backend.herokuapp.com:30541",
   development: "ws://192.168.0.16:8081"
 };
